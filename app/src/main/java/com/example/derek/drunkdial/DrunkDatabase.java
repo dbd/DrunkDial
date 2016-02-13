@@ -1,5 +1,9 @@
 package com.example.derek.drunkdial;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.sql.*;
 
 /**
@@ -7,38 +11,48 @@ import java.sql.*;
  */
 public class DrunkDatabase {
 
+    static final String ec2 = "http://ec2-52-32-35-132.us-west-2.compute.amazonaws.com/";
+    static final String oldtable = ec2 + "phpinfo.php";
+    DrunkTable users = new DrunkTable(ec2 + "new.php");
 
-    private static final String url = "jdbc:mysql://drunkdialwwh.cui02yblkhqg.us-west-2.rds.amazonaws.com:3306/DrunkDialDB";
-    private static final String user = "drunk";
-    private static final String pass = "drunkdial4";
-
-    Connection conn = null;
+    URL url = null;
+    URLConnection yc = null;
 
     public DrunkDatabase() {
+        doStuff();
+    }
 
+    public void doStuff() {
+        try {
+            //BufferedReader reader = users.GET("");
+            //System.out.println("JOSH: " + reader.readLine());
+        } catch (Exception e) {
+            System.err.println("Failed on GET: " + e.getMessage());
+        }
+    }
+
+    public SoberDriver getCurrentDriver() throws Exception{
 
         try {
-
-            //drunkdialwwh.cui02yblkhqg.us-west-2.rds.amazonaws.com:3306
-            Connection con = DriverManager.getConnection(url, user, pass);
-            /* System.out.println("Databaseection success"); */
-
-            String result = "Database connection success\n";
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery("select * from phones where active = 1");
-            ResultSetMetaData rsmd = rs.getMetaData();
-            System.out.println(rsmd.toString());
-
-            //conn = DriverManager.getConnection("blah");
-
-            // Do something with the Connection
-
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+            url = new URL(oldtable);
+            URLConnection yc = url.openConnection();
+        } catch (Exception e) {
+            System.err.println("Error on endpoint creation: " + e.getMessage());
         }
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+        System.out.println("omg");
+
+
+        String inputLine = in.readLine();
+
+        String[] data = new String[2];
+        data = inputLine.split(",");
+        System.out.printf("Name: %s Number: %s\n", data[0], data[1]);
+
+        in.close();
+
+        return new SoberDriver(data[0],data[1]);
     }
 
 }

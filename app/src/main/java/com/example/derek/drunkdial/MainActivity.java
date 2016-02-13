@@ -30,7 +30,8 @@ import java.net.URLConnection;
 public class MainActivity extends AppCompatActivity {
 
 
-    SoberDriver driver = new SoberDriver("Joshua Manela", "2483967666");
+    //SoberDriver driver = new SoberDriver("Joshua Manela", "2483967666");
+    SoberDriver driver = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,24 +45,31 @@ public class MainActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        drawDriver(nameText, numberText);
+
+        try {
+            driver = getCurrentDriver();
+            drawDriver(driver, nameText, numberText);
+        } catch (Exception e) {
+            System.out.println("Done");
+        }
+
         DrunkDatabase data = new DrunkDatabase();
 
         butt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                call(driver);
                 try {
-                    String a = plz();
-                    System.out.println(a);
+                    call(driver);
                 } catch (Exception e) {
                     System.out.println("Exception: " + e.getMessage());
                 }
             }
         });
+
+
     }
 
-    private void drawDriver(TextView nameText, TextView numberText) {
+    private void drawDriver(SoberDriver driver, TextView nameText, TextView numberText) {
         nameText.setText(driver.getName());
         numberText.setText(driver.getNumber());
     }
@@ -84,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String plz() throws Exception{
+    public SoberDriver getCurrentDriver() throws Exception{
 
         String link = "http://ec2-52-32-35-132.us-west-2.compute.amazonaws.com/phpinfo.php";
         URL url = new URL(link);
@@ -95,12 +103,16 @@ public class MainActivity extends AppCompatActivity {
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
         System.out.println("omg");
 
+
         String inputLine = in.readLine();
+
+        String[] data = new String[2];
+        data = inputLine.split(",");
+        System.out.printf("Name: %s Number: %s\n", data[0], data[1]);
+
         in.close();
 
-        System.out.println("TEST: " + inputLine);
-
-        return inputLine;
+        return new SoberDriver(data[0],data[1]);
     }
 }
   
