@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         String phone = ((EditText)findViewById(R.id.editTextPhonenumber)).getText().toString();
 
         System.out.println(DrunkDatabase.testAddUser(name, username, pass, phone));
+        System.out.println(DrunkDatabase.testAddUser(name, username, pass, phone));
 
         Intent i = new Intent(this, Home.class);
         startActivity(i);
