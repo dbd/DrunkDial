@@ -26,7 +26,13 @@ public class Login extends AppCompatActivity {
 
         System.out.println("Clicked the button");
 
+        Intent i = new Intent(this, Home.class);
+        startActivity(i);
+    }
+
+    public void startCreate(View view) {
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
     }
+
 }
