@@ -3,19 +3,19 @@ package com.example.derek.drunkdial;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.Buffer;
 import java.util.HashMap;
 
-/**
- * Created by juicedatom on 2/13/16.
- */
+
 public class DrunkResource {
 
     private String endpoint;
-    URLConnection yc = null;
+    InputStream yc = null;
     URL url = null;
 
     public DrunkResource(String endpoint) {
@@ -45,12 +45,16 @@ public class DrunkResource {
 
         try {
             url = new URL(tmp);
-            yc = url.openConnection();
+            yc = url.openStream();
         } catch (Exception e) {
             System.err.println("Error on endpoint creation: " + e.getMessage());
         }
 
-        BufferedReader reader  = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+        System.out.println("Debugging 1.25");
+        InputStreamReader isr = new InputStreamReader(yc);
+        System.out.println("Debugging 1.50");
+        BufferedReader reader  = new BufferedReader(isr);
+        System.out.println("Debugging 2");
 
         String retStr = reader.readLine();
         System.out.println("returned string: " + retStr);

@@ -9,6 +9,7 @@ import com.example.derek.drunkdial.DrunkDatabase;
 
 
 public class MainActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         String pass = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
         String phone = ((EditText)findViewById(R.id.editTextPhonenumber)).getText().toString();
 
-        System.out.println(DrunkDatabase.testAddUser(name, username, pass, phone));
-        System.out.println(DrunkDatabase.testAddUser(name, username, pass, phone));
+        DrunkDatabase.testAddUser(name, username, pass, phone);
 
         Intent i = new Intent(this, Home.class);
         startActivity(i);

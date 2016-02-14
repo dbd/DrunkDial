@@ -44,7 +44,7 @@ public class DrunkDatabase {
         return false;
     }
 
-    static String testAddUser(String name, String username, String pass, String phone) {
+    static void testAddUser(String name, String username, String pass, String phone) {
         DrunkResource addtest = new DrunkResource(ec2,"addmember.php");
 
         HashMap<String,String> args = new HashMap<String,String>();
@@ -54,12 +54,11 @@ public class DrunkDatabase {
         args.put("phone_number", phone);
 
         try {
-            return addtest.USE(args).toString();
+            addtest.USE(args);
         } catch (Exception e) {
             System.err.println("Failed to add test user: " + e.getMessage());
             e.printStackTrace();
         }
-        return "fail";
     }
 
     public void doStuff() {
