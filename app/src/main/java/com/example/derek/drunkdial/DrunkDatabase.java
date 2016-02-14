@@ -24,7 +24,7 @@ public class DrunkDatabase {
     URLConnection yc = null;
 
     public DrunkDatabase() {
-        ArrayList<DrunkUser> ret = getUsers(false);
+        ArrayList<DrunkUser> ret = getUsers();
         for (int i=0; i<ret.size(); ++i) {
             System.out.println("USER: " + ret.get(i));
         }

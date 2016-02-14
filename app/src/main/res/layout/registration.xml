@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text="Name"
+        android:hint="Name"
         android:layout_weight="0.05"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="9dp" />
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/editText6"
         android:layout_weight="0.05"
-        android:text="Username"
+        android:hint="Username"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="9dp" />
 
@@ -52,7 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editText2"
-        android:text="Password"
+        android:hint="Password"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="9dp" />
 
@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:id="@+id/editText3"
         android:layout_height="wrap_content"
-        android:text="Password Match"
+        android:hint="Password Match"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="9dp" />
 
@@ -100,7 +100,7 @@
         android:layout_width="324dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText4"
-        android:text="Phone Number"
+        android:hint="Phone Number"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="9dp" />
 
