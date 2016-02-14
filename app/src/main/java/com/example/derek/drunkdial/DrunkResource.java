@@ -39,6 +39,8 @@ public class DrunkResource {
 
         tmp = String.format("%s?%s", this.endpoint, tmp);
 
+        tmp = tmp.substring(0, tmp.length() -1);
+
         System.out.printf("I am going to: %s\n", tmp);
 
         try {

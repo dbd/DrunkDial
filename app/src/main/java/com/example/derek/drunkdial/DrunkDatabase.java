@@ -4,15 +4,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- * Created by derek on 2/13/16.
- */
+
 public class DrunkDatabase {
 
     static final String ec2 = "http://ec2-52-32-35-132.us-west-2.compute.amazonaws.com/";
@@ -47,18 +44,22 @@ public class DrunkDatabase {
         return false;
     }
 
-    void testAddUser(String name) {
+    static String testAddUser(String name, String username, String pass, String phone) {
         DrunkResource addtest = new DrunkResource(ec2,"addmember.php");
 
         HashMap<String,String> args = new HashMap<String,String>();
         args.put("name",name);
+        args.put("user_login", username);
+        args.put("user_pass", pass);
+        args.put("phone_number", phone);
 
         try {
-            addtest.USE(args);
+            return addtest.USE(args).toString();
         } catch (Exception e) {
             System.err.println("Failed to add test user: " + e.getMessage());
             e.printStackTrace();
         }
+        return "fail";
     }
 
     public void doStuff() {
