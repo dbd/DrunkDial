@@ -11,13 +11,13 @@ import java.nio.Buffer;
 /**
  * Created by juicedatom on 2/13/16.
  */
-public class DrunkTable {
+public class DrunkResource {
 
     private String endpoint;
     URLConnection yc = null;
     URL url = null;
 
-    public DrunkTable(String endpoint) {
+    public DrunkResource(String endpoint) {
         this.endpoint = endpoint;
     }
 
