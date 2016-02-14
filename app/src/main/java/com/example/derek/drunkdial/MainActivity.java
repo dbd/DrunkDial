@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         String name = ((EditText)findViewById(R.id.editTextName)).getText().toString();
         String username = ((EditText)findViewById(R.id.editTextUsername)).getText().toString();
         String pass = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
-        String phone = ((EditText)findViewById(R.id.editTextPhonenumber)).getText().toString();
+        String phone = ((EditText)findViewById(R.id.editTextPhoneNumber)).getText().toString();
 
         DrunkDatabase.testAddUser(name, username, pass, phone);
 
