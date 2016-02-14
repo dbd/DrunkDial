@@ -24,16 +24,14 @@ public class DrunkDatabase {
     URLConnection yc = null;
 
     public DrunkDatabase() {
-        ArrayList<DrunkUser> ret = getUsers(true);
-
-
+        ArrayList<DrunkUser> ret = getUsers(false);
         for (int i=0; i<ret.size(); ++i) {
             System.out.println("USER: " + ret.get(i));
         }
     }
 
     boolean validateCredentials(String username, String password) {
-        DrunkResource validate = new DrunkResource(ec2 + "validate.php");
+        DrunkResource validate = new DrunkResource(ec2, "validate.php");
 
         JSONObject ret;
         try {
@@ -75,14 +73,24 @@ public class DrunkDatabase {
         }
     }
 
-    public ArrayList<DrunkUser> getUsers(boolean active) {
+    public ArrayList<DrunkUser> getUsers() {
+        return getUsers(null);
+    }
+
+    public ArrayList<DrunkUser> getUsers(Boolean active) {
         DrunkResource getUsers = new DrunkResource(ec2,"getusers.php");
 
         ArrayList<DrunkUser> ret = new ArrayList<DrunkUser>();
         JSONObject json = null;
         int n = 0;
+        HashMap<String,String> args = new HashMap<String,String>();
+
+        if (active != null) {
+            args.put("active", active ? "1" : "0");
+        }
+
         try {
-            json = getUsers.USE();
+            json = getUsers.USE(args);
             n = json.getInt("num users");
         } catch (Exception e) {
             e.printStackTrace();

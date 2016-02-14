@@ -29,10 +29,10 @@ public class DrunkUser {
         try {
             this.id = json.getInt("id");
             this.name = (String) json.get("name");
-            this.phone = (String) json.get("phone");
+            this.phone = (String) json.get("phone_number");
             this.name = (String) json.get("user_login");
             this.phone = (String) json.get("user_pass");
-            this.active = json.getBoolean("active");
+            this.active = json.getBoolean("active_status");
         } catch (Exception e) {
             e.printStackTrace();
         }
