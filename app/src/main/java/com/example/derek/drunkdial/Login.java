@@ -10,10 +10,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
-/**
- * Created by derek on 2/14/16.
- */
+
 public class Login extends AppCompatActivity {
 
     @Override
@@ -24,10 +23,17 @@ public class Login extends AppCompatActivity {
 
     public void login(View view) {
 
-        System.out.println("Clicked the button");
-
-        Intent i = new Intent(this, Home.class);
-        startActivity(i);
+        DrunkDatabase dd = new DrunkDatabase();
+        if (dd.validateCredentials( ((EditText) findViewById(R.id.loginname)).getText().toString() ,
+                ((EditText)findViewById(R.id.loginpass)).getText().toString())) {
+            Intent i = new Intent(this, Home.class);
+            startActivity(i);
+        } else {
+            TextView tv = (TextView) findViewById(R.id.textView6);
+            tv.setText("Invalid Credentials");
+            Intent i = new Intent(this, Home.class);
+            startActivity(i);
+        }
     }
 
     public void startCreate(View view) {

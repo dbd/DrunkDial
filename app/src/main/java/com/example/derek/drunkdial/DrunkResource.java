@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class DrunkResource {
 
     private String endpoint;
-    InputStream yc = null;
+    URLConnection yc = null;
     URL url = null;
 
     public DrunkResource(String endpoint) {
@@ -39,19 +39,26 @@ public class DrunkResource {
 
         tmp = String.format("%s?%s", this.endpoint, tmp);
 
-        tmp = tmp.substring(0, tmp.length() -1);
+        tmp = tmp.substring(0, tmp.length() - 1);
 
         System.out.printf("I am going to: %s\n", tmp);
 
+
         try {
             url = new URL(tmp);
-            yc = url.openStream();
+            System.out.println("Debugging 0.4");
+            yc = url.openConnection();
+            System.out.println("DEbugging 0.6");
+            InputStream inputStream = null;
+            System.out.println("debuggin 0.7");
+            inputStream = yc.getInputStream();
+            System.out.println("Deguggin 0.8");
         } catch (Exception e) {
             System.err.println("Error on endpoint creation: " + e.getMessage());
         }
 
         System.out.println("Debugging 1.25");
-        InputStreamReader isr = new InputStreamReader(yc);
+        InputStreamReader isr = new InputStreamReader(yc.getInputStream());
         System.out.println("Debugging 1.50");
         BufferedReader reader  = new BufferedReader(isr);
         System.out.println("Debugging 2");
